@@ -6,14 +6,7 @@ let adminTenant = null;
 let currentEmployee = null;
 
 (async function() {
-  // Verificar sesión
-  const { data: { session } } = await supabaseClient.auth.getSession();
-  if (!session) {
-    showLogin();
-    return;
-  }
-
-  // Cargar info del tenant
+  // Cargar info del tenant primero (es pública)
   const slug = getTenantSlug();
   if (!slug) {
     document.getElementById('app').innerHTML = '<div class="loading-spinner"><p>Slug no encontrado en URL</p></div>';
@@ -24,19 +17,33 @@ let currentEmployee = null;
     const tenantData = await apiRequest(`/store?slug=${slug}&action=tenant`);
     adminTenant = tenantData.tenant;
     applyTenantTheme(adminTenant);
-    initAdminPanel(session);
   } catch (err) {
-    document.getElementById('app').innerHTML = `<div class="loading-spinner"><p>Error: ${err.message}</p></div>`;
+    document.getElementById('app').innerHTML = `<div class="loading-spinner"><p>Negocio no encontrado</p></div>`;
+    return;
   }
+
+  // Verificar sesión
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (!session) {
+    showLogin();
+    return;
+  }
+
+  initAdminPanel(session);
 })();
 
 function showLogin() {
+  const logo = adminTenant?.config?.logo_url;
+  const name = adminTenant?.name || 'Panel Admin';
+  const color = adminTenant?.config?.primary_color || 'var(--color-primary)';
+
   document.getElementById('app').innerHTML = `
     <div style="display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--color-bg); width:100%;">
       <div class="card" style="width:100%; max-width:380px; padding:32px;">
         <div style="text-align:center; margin-bottom:24px;">
-          <h2 style="font-size:20px; font-weight:700;">Panel Admin</h2>
-          <p style="color:var(--color-text-muted); margin-top:6px; font-size:13px;">Inicia sesión para continuar</p>
+          ${logo ? `<img src="${logo}" style="height:48px; border-radius:var(--radius); margin-bottom:12px;">` : ''}
+          <h2 style="font-size:20px; font-weight:700;">${name}</h2>
+          <p style="color:var(--color-text-muted); margin-top:6px; font-size:13px;">Inicia sesión para administrar</p>
         </div>
         <form id="login-form">
           <div class="form-group">
@@ -47,7 +54,7 @@ function showLogin() {
             <label class="form-label">Contraseña</label>
             <input type="password" id="login-password" class="form-input" required placeholder="••••••••">
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:10px; margin-top:8px;">
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:10px; margin-top:8px; background:${color}; border-color:${color};">
             Iniciar Sesión
           </button>
           <p id="login-error" class="hidden" style="color:var(--color-error); text-align:center; margin-top:12px; font-size:12px;"></p>
