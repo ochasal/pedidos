@@ -18,20 +18,20 @@ let currentView = 'catalog'; // catalog, cart, checkout, confirmation
 
   try {
     // Cargar tenant
-    const tenantData = await apiRequest(`/tenants/${slug}`);
+    const tenantData = await apiRequest(`/store?slug=${slug}&action=tenant`);
     storeTenant = tenantData.tenant;
     applyTenantTheme(storeTenant);
 
     // Verificar horarios
-    const hoursData = await apiRequest(`/tenants/${slug}/hours`);
+    const hoursData = await apiRequest(`/store?slug=${slug}&action=hours`);
     
     // Cargar catálogo
-    const catalogData = await apiRequest(`/tenants/${slug}/products`);
+    const catalogData = await apiRequest(`/store?slug=${slug}&action=products`);
     storeProducts = catalogData.products;
     storeCategories = catalogData.categories;
 
     // Cargar métodos de pago
-    const payData = await apiRequest(`/tenants/${slug}/payments`);
+    const payData = await apiRequest(`/store?slug=${slug}&action=payments`);
     storePaymentMethods = payData.payment_methods;
     storeExchangeRates = payData.exchange_rates || [];
 
@@ -483,7 +483,7 @@ async function submitOrder(e) {
 
   try {
     const slug = getTenantSlug();
-    const result = await apiRequest(`/tenants/${slug}/orders`, {
+    const result = await apiRequest(`/orders?slug=${slug}&action=create`, {
       method: 'POST',
       body: JSON.stringify(orderData)
     });
@@ -619,7 +619,7 @@ async function submitPaymentProof(orderId, paymentMethodId) {
 
   try {
     const slug = getTenantSlug();
-    await apiRequest(`/tenants/${slug}/payments`, {
+    await apiRequest(`/orders?slug=${slug}&action=pay`, {
       method: 'POST',
       body: JSON.stringify({
         order_id: orderId,

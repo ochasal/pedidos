@@ -22,7 +22,7 @@ async function loadOrderTracking(slug, token) {
   const content = document.getElementById('tracking-content');
 
   try {
-    const response = await apiRequest(`/tenants/${slug}/orders/track/${token}`);
+    const response = await apiRequest(`/orders?slug=${slug}&action=track&token=${token}`);
     renderTracking(content, response.order);
   } catch (error) {
     showError(`No se pudo cargar el pedido: ${error.message}`);

@@ -17,7 +17,7 @@ async function loadTenant() {
   }
 
   try {
-    const response = await apiRequest(`/tenants/${slug}`);
+    const response = await apiRequest(`/store?slug=${slug}&action=tenant`);
     currentTenant = response.tenant;
     applyTenantTheme(currentTenant);
     return currentTenant;
