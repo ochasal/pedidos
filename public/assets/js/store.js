@@ -328,16 +328,14 @@ function renderCheckout() {
       <form id="checkout-form" onsubmit="submitOrder(event)">
         <!-- Datos del cliente -->
         <div class="checkout-section">
-          <h3>📋 Tus Datos</h3>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Nombre completo *</label>
-              <input type="text" name="customer_name" class="form-input" required placeholder="Tu nombre">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Teléfono / WhatsApp *</label>
-              <input type="tel" name="customer_phone" class="form-input" required placeholder="+58 412...">
-            </div>
+          <h3>Tus Datos</h3>
+          <div class="form-group">
+            <label class="form-label">Nombre completo *</label>
+            <input type="text" name="customer_name" class="form-input" required placeholder="Tu nombre completo">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono / WhatsApp *</label>
+            <input type="tel" name="customer_phone" class="form-input" required placeholder="+58 412 1234567">
           </div>
           <div class="form-group">
             <label class="form-label">Email (opcional)</label>
@@ -347,7 +345,7 @@ function renderCheckout() {
 
         <!-- Tipo de entrega -->
         <div class="checkout-section">
-          <h3>🚚 Tipo de Entrega</h3>
+          <h3>Tipo de Entrega</h3>
           <div class="delivery-options">
             ${deliveryEnabled ? `
               <label class="delivery-option">
@@ -370,19 +368,20 @@ function renderCheckout() {
               </label>
             ` : ''}
           </div>
-          <div id="address-field" class="form-group mt-2" ${!deliveryEnabled ? 'style="display:none"' : ''}>
+          <div id="address-field" class="form-group" style="margin-top:12px; ${!deliveryEnabled ? 'display:none' : ''}">
             <label class="form-label">Dirección de entrega *</label>
-            <textarea name="customer_address" class="form-input" placeholder="Calle, número, referencia..." rows="2"></textarea>
+            <textarea name="customer_address" class="form-input" placeholder="Calle, número, urbanización, punto de referencia..." rows="2"></textarea>
           </div>
         </div>
 
         <!-- Método de pago -->
+        ${storePaymentMethods.length > 0 ? `
         <div class="checkout-section">
-          <h3>💳 Método de Pago</h3>
+          <h3>Método de Pago</h3>
           <div class="payment-options">
-            ${storePaymentMethods.map(pm => `
+            ${storePaymentMethods.map((pm, idx) => `
               <label class="payment-option">
-                <input type="radio" name="payment_method_id" value="${pm.id}" ${storePaymentMethods[0].id === pm.id ? 'checked' : ''}>
+                <input type="radio" name="payment_method_id" value="${pm.id}" ${idx === 0 ? 'checked' : ''}>
                 <div class="option-card">
                   <span class="option-label">${pm.name}</span>
                   <span class="option-fee">${pm.currencies?.symbol || ''} ${pm.currencies?.code || ''}</span>
@@ -390,8 +389,9 @@ function renderCheckout() {
               </label>
             `).join('')}
           </div>
-          <div id="payment-instructions" class="payment-instructions mt-2"></div>
+          <div id="payment-instructions" class="payment-instructions" style="margin-top:8px;"></div>
         </div>
+        ` : ''}
 
         <!-- Notas -->
         <div class="checkout-section">
@@ -403,20 +403,20 @@ function renderCheckout() {
 
         <!-- Resumen final -->
         <div class="checkout-summary">
-          <h3>Resumen del Pedido</h3>
+          <h3 style="font-size:14px; margin-bottom:10px;">Resumen del Pedido</h3>
           ${cart.map(item => `
             <div class="summary-item">
               <span>${item.quantity}x ${item.name}</span>
               <span>${item.currency_symbol}${(item.price * item.quantity).toFixed(2)}</span>
             </div>
           `).join('')}
-          <div class="summary-row"><span>Subtotal</span><span>$${total.toFixed(2)}</span></div>
+          <div class="summary-row" style="margin-top:8px;"><span>Subtotal</span><span>$${total.toFixed(2)}</span></div>
           <div class="summary-row" id="delivery-fee-row"><span>Delivery</span><span>$${deliveryFee.toFixed(2)}</span></div>
-          <div class="summary-row total"><span>Total</span><span id="checkout-total">$${(total + deliveryFee).toFixed(2)}</span></div>
+          <div class="summary-row total"><span>Total a pagar</span><span id="checkout-total">$${(total + deliveryFee).toFixed(2)}</span></div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-lg" id="submit-order-btn" style="width:100%; justify-content:center; padding:1rem; font-size:1rem;">
-          ✅ Confirmar Pedido
+        <button type="submit" class="btn btn-primary btn-lg" id="submit-order-btn" style="width:100%; justify-content:center;">
+          Confirmar Pedido
         </button>
       </form>
     </div>
