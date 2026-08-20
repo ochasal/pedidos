@@ -80,7 +80,15 @@ async function showProductForm(productId = null) {
         ))}
         ${UI.formGroup('Orden', `<input type="number" name="sort_order" class="form-input" value="${product?.sort_order || 0}">`)}
       </div>
-      ${UI.formGroup('URL de imagen', `<input type="url" name="image_url" class="form-input" value="${product?.image_url || ''}" placeholder="https://...">`, 'Sube la imagen a Supabase Storage y pega la URL aquí')}
+      <div class="form-group">
+        <label class="form-label">Imagen del producto</label>
+        <div class="image-upload-area" id="product-image-area">
+          ${product?.image_url ? `<img src="${product.image_url}" class="image-preview" id="product-preview">` : '<div class="image-placeholder" id="product-preview-placeholder">Toca para subir imagen</div>'}
+          <input type="file" id="product-image-file" accept="image/*" capture="environment" onchange="handleProductImageUpload(this)" style="display:none;">
+          <input type="hidden" name="image_url" id="product-image-url" value="${product?.image_url || ''}">
+        </div>
+        <div id="product-image-status" style="margin-top:6px; font-size:12px; color:var(--color-text-muted);"></div>
+      </div>
       <div class="form-group" style="display:flex; align-items:center; gap:10px;">
         <label class="toggle">
           <input type="checkbox" name="is_available" ${product?.is_available !== false ? 'checked' : ''}>
