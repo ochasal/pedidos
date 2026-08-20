@@ -2,7 +2,7 @@
  * Panel Admin - Main Controller
  * Maneja auth, layout, navegación y carga de secciones
  */
-let currentTenant = null;
+let adminTenant = null;
 let currentEmployee = null;
 
 (async function() {
@@ -22,8 +22,8 @@ let currentEmployee = null;
 
   try {
     const tenantData = await apiRequest(`/store?slug=${slug}&action=tenant`);
-    currentTenant = tenantData.tenant;
-    applyTenantTheme(currentTenant);
+    adminTenant = tenantData.tenant;
+    applyTenantTheme(adminTenant);
     initAdminPanel(session);
   } catch (err) {
     document.getElementById('app').innerHTML = `<div class="loading-spinner"><p>Error: ${err.message}</p></div>`;
@@ -80,7 +80,7 @@ function initAdminPanel(session) {
 
   sidebar.innerHTML = `
     <div class="logo">
-      <strong>${currentTenant.name}</strong>
+      <strong>${adminTenant.name}</strong>
       <br><small style="color:var(--color-text-light)">Admin</small>
     </div>
     <div class="nav-section">Principal</div>

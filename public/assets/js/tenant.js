@@ -2,7 +2,7 @@
  * Resolución y carga de configuración del tenant
  * Identifica el tenant por slug en la URL y carga su config
  */
-let currentTenant = null;
+var currentTenant = null;
 
 async function loadTenant() {
   const slug = getTenantSlug();
