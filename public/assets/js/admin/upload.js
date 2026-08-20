@@ -103,11 +103,4 @@ async function handleLogoUpload(input) {
   }
 }
 
-// Click en el área de upload abre el file picker
-document.addEventListener('click', function(e) {
-  const area = e.target.closest('.image-upload-area');
-  if (area && !e.target.closest('button')) {
-    const input = area.querySelector('input[type="file"]');
-    if (input) input.click();
-  }
-});
+// Los clicks en image-upload-area se manejan con onclick inline en cada elemento

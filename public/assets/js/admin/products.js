@@ -82,7 +82,7 @@ async function showProductForm(productId = null) {
       </div>
       <div class="form-group">
         <label class="form-label">Imagen del producto</label>
-        <div class="image-upload-area" id="product-image-area">
+        <div class="image-upload-area" id="product-image-area" onclick="document.getElementById('product-image-file').click()">
           ${product?.image_url ? `<img src="${product.image_url}" class="image-preview" id="product-preview">` : '<div class="image-placeholder" id="product-preview-placeholder">Toca para subir imagen</div>'}
           <input type="file" id="product-image-file" accept="image/*" capture="environment" onchange="handleProductImageUpload(this)" style="display:none;">
           <input type="hidden" name="image_url" id="product-image-url" value="${product?.image_url || ''}">

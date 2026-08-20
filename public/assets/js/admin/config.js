@@ -39,7 +39,7 @@ async function renderConfig(container) {
             ${UI.formGroup('Color de Acento', `<input type="color" name="accent_color" class="form-input" value="${config.accent_color || '#f59e0b'}">`)}
             <div class="form-group">
               <label class="form-label">Logo del negocio</label>
-              <div class="image-upload-area" id="logo-upload-area" style="min-height:80px;">
+              <div class="image-upload-area" id="logo-upload-area" style="min-height:80px;" onclick="document.getElementById('logo-file').click()">
                 <div id="logo-preview">
                   ${config.logo_url ? `<img src="${config.logo_url}" class="image-preview" style="max-height:80px; width:auto; margin:auto;">` : '<div class="image-placeholder">Subir logo</div>'}
                 </div>
