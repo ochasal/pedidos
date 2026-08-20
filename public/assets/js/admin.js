@@ -21,7 +21,7 @@ let currentEmployee = null;
   }
 
   try {
-    const tenantData = await apiRequest(`/tenants/${slug}`);
+    const tenantData = await apiRequest(`/store?slug=${slug}&action=tenant`);
     currentTenant = tenantData.tenant;
     applyTenantTheme(currentTenant);
     initAdminPanel(session);
