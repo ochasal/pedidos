@@ -37,9 +37,15 @@ let currentView = 'catalog'; // catalog, cart, checkout, confirmation
 
     renderStoreHeader();
     
-    // Mostrar catálogo siempre - solo avisar si cerrado
-    if (!hoursData.is_open && storeTenant.config.auto_close_after_hours && hoursData.hours.length > 0) {
-      renderCatalog(true); // true = mostrar aviso de cerrado
+    // Verificar horario en el CLIENTE (hora local del usuario)
+    const now = new Date();
+    const currentDay = now.getDay();
+    const currentTime = now.toTimeString().substring(0, 5);
+    const todayHours = hoursData.hours.find(h => h.day_of_week === currentDay && h.is_active);
+    const isOpenLocally = todayHours ? currentTime >= todayHours.open_time.substring(0,5) && currentTime <= todayHours.close_time.substring(0,5) : true;
+
+    if (!isOpenLocally && storeTenant.config.auto_close_after_hours && hoursData.hours.length > 0) {
+      renderCatalog(true);
     } else {
       renderCatalog(false);
     }
