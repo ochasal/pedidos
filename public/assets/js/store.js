@@ -37,10 +37,11 @@ let currentView = 'catalog'; // catalog, cart, checkout, confirmation
 
     renderStoreHeader();
     
-    if (!hoursData.is_open && storeTenant.config.auto_close_after_hours) {
-      renderClosedMessage(hoursData);
+    // Mostrar catálogo siempre - solo avisar si cerrado
+    if (!hoursData.is_open && storeTenant.config.auto_close_after_hours && hoursData.hours.length > 0) {
+      renderCatalog(true); // true = mostrar aviso de cerrado
     } else {
-      renderCatalog();
+      renderCatalog(false);
     }
 
     renderCartFab();
@@ -89,12 +90,21 @@ function renderClosedMessage(hoursData) {
 }
 
 // ===== CATÁLOGO =====
-function renderCatalog() {
+function renderCatalog(showClosedWarning = false) {
   const content = document.getElementById('store-content');
   currentView = 'catalog';
 
+  let html = '';
+
+  // Aviso de cerrado (no bloquea)
+  if (showClosedWarning) {
+    html += `<div style="background:var(--color-warning-light); border:1px solid #fcd34d; border-radius:var(--radius-lg); padding:12px 16px; margin-bottom:16px; font-size:13px; color:#92400e;">
+      ⚠️ Estamos fuera de horario. Puedes ver el catálogo pero los pedidos se procesarán en horario de atención.
+    </div>`;
+  }
+
   // Filtro por categorías
-  let html = '<div class="category-tabs">';
+  html += '<div class="category-tabs">';
   html += `<button class="cat-tab active" onclick="filterByCategory(null)">Todos</button>`;
   storeCategories.forEach(cat => {
     html += `<button class="cat-tab" onclick="filterByCategory('${cat.id}')">${cat.name}</button>`;
