@@ -37,9 +37,18 @@ async function renderConfig(container) {
           </div>
           <div class="form-row">
             ${UI.formGroup('Color de Acento', `<input type="color" name="accent_color" class="form-input" value="${config.accent_color || '#f59e0b'}">`)}
-            ${UI.formGroup('URL del Logo', `<input type="url" name="logo_url" class="form-input" value="${config.logo_url || ''}" placeholder="https://...">`)}
+            <div class="form-group">
+              <label class="form-label">Logo del negocio</label>
+              <div class="image-upload-area" id="logo-upload-area" style="min-height:80px;">
+                <div id="logo-preview">
+                  ${config.logo_url ? `<img src="${config.logo_url}" class="image-preview" style="max-height:80px; width:auto; margin:auto;">` : '<div class="image-placeholder">Subir logo</div>'}
+                </div>
+                <input type="file" id="logo-file" accept="image/*" onchange="handleLogoUpload(this)" style="display:none;">
+                <input type="hidden" name="logo_url" id="logo-url-value" value="${config.logo_url || ''}">
+              </div>
+              <div id="logo-upload-status" style="font-size:11px; margin-top:4px;"></div>
+            </div>
           </div>
-          ${UI.formGroup('URL del Favicon', `<input type="url" name="favicon_url" class="form-input" value="${config.favicon_url || ''}" placeholder="https://...">`)}
         </div>
 
         <div class="card mb-4">
@@ -131,7 +140,7 @@ async function saveConfig(e) {
     primary_color_dark: form.primary_color_dark.value,
     accent_color: form.accent_color.value,
     logo_url: form.logo_url.value,
-    favicon_url: form.favicon_url.value,
+    favicon_url: form.logo_url.value,
     delivery_enabled: form.delivery_enabled.checked,
     pickup_enabled: form.pickup_enabled.checked,
     min_order_amount: parseFloat(form.min_order_amount.value) || 0,
