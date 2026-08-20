@@ -1,52 +1,64 @@
 /* ===========================
-   Order Tracking Styles
+   Order Tracking - Modern UI
    =========================== */
 
 #tracking-content {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 480px;
+  margin: 32px auto;
+  padding: 0 16px;
 }
 
 .tracking-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 28px;
+}
+
+.tracking-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.tracking-header p {
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  font-size: 14px;
 }
 
 .tracking-timeline {
   position: relative;
-  padding-left: 2rem;
+  padding-left: 28px;
 }
 
 .tracking-timeline::before {
   content: '';
   position: absolute;
-  left: 0.75rem;
-  top: 0;
-  bottom: 0;
+  left: 9px;
+  top: 4px;
+  bottom: 4px;
   width: 2px;
   background: var(--color-border);
+  border-radius: 2px;
 }
 
 .timeline-step {
   position: relative;
-  padding-bottom: 1.5rem;
+  padding-bottom: 20px;
 }
 
 .timeline-step .dot {
   position: absolute;
-  left: -1.6rem;
-  top: 0.25rem;
-  width: 12px;
-  height: 12px;
+  left: -23px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--color-border);
-  border: 2px solid var(--color-surface);
+  border: 2px solid var(--color-bg);
 }
 
 .timeline-step.active .dot {
   background: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 4px var(--color-primary-light);
 }
 
 .timeline-step.completed .dot {
@@ -55,19 +67,43 @@
 
 .timeline-step .step-title {
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 13px;
+  color: var(--color-text);
 }
 
 .timeline-step .step-time {
-  font-size: 0.75rem;
-  color: var(--color-text-light);
-  margin-top: 0.25rem;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.timeline-step:not(.active):not(.completed) .step-title {
+  color: var(--color-text-muted);
 }
 
 .order-summary {
   background: var(--color-surface);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
-  margin-top: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 20px;
+  margin-top: 24px;
+}
+
+.order-summary h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.order-summary p {
+  font-size: 13px;
+  padding: 3px 0;
+  color: var(--color-text-secondary);
+}
+
+.order-summary strong {
+  color: var(--color-text);
 }
