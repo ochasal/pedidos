@@ -22,18 +22,18 @@ async function renderPaymentMethods(container) {
           { label: 'Nombre', render: row => `<strong>${row.name}</strong>` },
           { label: 'Tipo', render: row => getPaymentTypeLabel(row.type) },
           { label: 'Moneda', render: row => row.currencies ? `${row.currencies.symbol} ${row.currencies.code}` : '-' },
-          { label: 'Comprobante', render: row => row.requires_proof ? '✓ Requerido' : 'No' },
+          { label: 'Comprobante', render: row => row.requires_proof ? '<span class="badge badge-blue">Requerido</span>' : '<span class="badge badge-gray">No</span>' },
           { label: 'Activo', render: row => row.is_active ?
-            '<span style="color:var(--color-success)">✓</span>' :
-            '<span style="color:var(--color-error)">✗</span>'
+            '<span class="badge badge-green">Sí</span>' :
+            '<span class="badge badge-red">No</span>'
           }
         ],
         methods,
         {
-          emptyMessage: 'No tienes métodos de pago configurados.',
+          emptyMessage: 'No tienes métodos de pago. Crea uno para que tus clientes puedan pagar.',
           actions: row => `
-            <button class="btn btn-sm btn-ghost" onclick="showPaymentMethodForm('${row.id}')">✏️</button>
-            <button class="btn btn-sm btn-danger" onclick="deletePaymentMethod('${row.id}', '${row.name}')">🗑️</button>
+            <button class="btn btn-sm btn-ghost" onclick="showPaymentMethodForm('${row.id}')">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="deletePaymentMethod('${row.id}', '${row.name}')">Eliminar</button>
           `
         }
       )}
@@ -46,12 +46,12 @@ async function renderPaymentMethods(container) {
 
 function getPaymentTypeLabel(type) {
   const labels = {
-    'cash': '💵 Efectivo',
-    'transfer': '🏦 Transferencia',
-    'mobile_payment': '📱 Pago Móvil',
-    'zelle': '💲 Zelle',
-    'crypto': '₿ Crypto',
-    'other': '📄 Otro'
+    'cash': 'Efectivo',
+    'transfer': 'Transferencia',
+    'mobile_payment': 'Pago Móvil',
+    'zelle': 'Zelle',
+    'crypto': 'Crypto',
+    'other': 'Otro'
   };
   return labels[type] || type;
 }
@@ -66,30 +66,30 @@ async function showPaymentMethodForm(methodId = null) {
   const title = method ? 'Editar Método de Pago' : 'Nuevo Método de Pago';
   const formHtml = `
     <form id="pm-form" onsubmit="savePaymentMethod(event, '${methodId || ''}')">
-      ${UI.formGroup('Nombre *', `<input type="text" name="name" class="form-input" value="${method?.name || ''}" required placeholder="Pago Móvil BDV">`)}
+      ${UI.formGroup('Nombre del método *', `<input type="text" name="name" class="form-input" value="${method?.name || ''}" required placeholder="Ej: Pago Móvil BDV, Zelle, Efectivo al delivery">`, 'Lo que el cliente verá al momento de pagar')}
       <div class="form-row">
         ${UI.formGroup('Tipo *', UI.select('type', [
-          { value: 'cash', label: '💵 Efectivo' },
-          { value: 'transfer', label: '🏦 Transferencia' },
-          { value: 'mobile_payment', label: '📱 Pago Móvil' },
-          { value: 'zelle', label: '💲 Zelle' },
-          { value: 'crypto', label: '₿ Crypto' },
-          { value: 'other', label: '📄 Otro' }
+          { value: 'cash', label: 'Efectivo' },
+          { value: 'transfer', label: 'Transferencia' },
+          { value: 'mobile_payment', label: 'Pago Móvil' },
+          { value: 'zelle', label: 'Zelle' },
+          { value: 'crypto', label: 'Crypto' },
+          { value: 'other', label: 'Otro' }
         ], method?.type || 'transfer'))}
         ${UI.formGroup('Moneda *', UI.select('currency_id',
           cachedCurrencies.map(c => ({ value: c.id, label: `${c.symbol} ${c.name}` })),
           method?.currency_id || cachedCurrencies[0]?.id
         ))}
       </div>
-      ${UI.formGroup('Instrucciones', `<textarea name="instructions" class="form-input" placeholder="Datos bancarios, número de cuenta, etc.">${method?.instructions || ''}</textarea>`, 'El cliente verá estas instrucciones al seleccionar este método')}
-      <div class="form-group">
+      ${UI.formGroup('Instrucciones para el cliente', `<textarea name="instructions" class="form-input" placeholder="Banco: Venezuela\nCédula: V-12345678\nTeléfono: 0412-1234567">${method?.instructions || ''}</textarea>`, 'Datos que el cliente necesita para hacer el pago')}
+      <div class="form-group" style="display:flex; align-items:center; gap:10px;">
         <label class="toggle">
           <input type="checkbox" name="requires_proof" ${method?.requires_proof !== false ? 'checked' : ''}>
           <span class="slider"></span>
         </label>
-        <span style="margin-left:0.5rem;">Requiere comprobante</span>
+        <span style="font-size:13px;">Requiere comprobante de pago</span>
       </div>
-      ${UI.formGroup('Orden de aparición', `<input type="number" name="sort_order" class="form-input" value="${method?.sort_order || 0}">`)}
+      ${UI.formGroup('Orden', `<input type="number" name="sort_order" class="form-input" value="${method?.sort_order || 0}" style="width:80px;">`, 'Menor = aparece primero')}
       <div class="form-actions">
         <button type="button" class="btn btn-ghost" onclick="UI.closeModal('pm-modal')">Cancelar</button>
         <button type="submit" class="btn btn-primary">${method ? 'Guardar' : 'Crear'}</button>

@@ -26,8 +26,8 @@ async function renderEmployees(container) {
         {
           emptyMessage: 'No hay empleados registrados.',
           actions: row => `
-            <button class="btn btn-sm btn-ghost" onclick="showEmployeeForm('${row.id}')">✏️</button>
-            ${row.role !== 'owner' ? `<button class="btn btn-sm btn-danger" onclick="deleteEmployee('${row.id}', '${row.name}')">🗑️</button>` : ''}
+            <button class="btn btn-sm btn-ghost" onclick="showEmployeeForm('${row.id}')">Editar</button>
+            ${row.role !== 'owner' ? `<button class="btn btn-sm btn-danger" onclick="deleteEmployee('${row.id}', '${row.name}')">Eliminar</button>` : ''}
           `
         }
       )}

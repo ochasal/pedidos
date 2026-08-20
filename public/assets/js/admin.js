@@ -88,19 +88,19 @@ function initAdminPanel(session) {
   sidebar.innerHTML = `
     <div class="logo">
       <strong>${adminTenant.name}</strong>
-      <br><small style="color:var(--color-text-light)">Admin</small>
+      <br><small style="color:var(--color-text-muted)">Admin</small>
     </div>
     <div class="nav-section">Principal</div>
     <a class="nav-item active" data-section="dashboard">📊 Dashboard</a>
     <a class="nav-item" data-section="orders">📋 Pedidos</a>
     <div class="nav-section">Catálogo</div>
-    <a class="nav-item" data-section="products">🛍️ Productos</a>
+    <a class="nav-item" data-section="products">🛍 Productos</a>
     <a class="nav-item" data-section="categories">📁 Categorías</a>
     <div class="nav-section">Configuración</div>
     <a class="nav-item" data-section="payments">💳 Métodos de Pago</a>
     <a class="nav-item" data-section="currencies">💱 Monedas</a>
     <a class="nav-item" data-section="hours">🕐 Horarios</a>
-    <a class="nav-item" data-section="config">⚙️ Mi Negocio</a>
+    <a class="nav-item" data-section="config">⚙ Mi Negocio</a>
     <a class="nav-item" data-section="employees">👥 Empleados</a>
     <div style="flex:1"></div>
     <a class="nav-item" data-section="logout" style="color:var(--color-error);">🚪 Cerrar Sesión</a>

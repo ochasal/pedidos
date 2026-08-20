@@ -30,8 +30,8 @@ async function renderCurrencies(container) {
           currencies,
           {
             actions: row => `
-              <button class="btn btn-sm btn-ghost" onclick="showCurrencyForm('${row.id}')">✏️</button>
-              ${!row.is_base ? `<button class="btn btn-sm btn-danger" onclick="deleteCurrency('${row.id}', '${row.code}')">🗑️</button>` : ''}
+              <button class="btn btn-sm btn-ghost" onclick="showCurrencyForm('${row.id}')">Editar</button>
+              ${!row.is_base ? `<button class="btn btn-sm btn-danger" onclick="deleteCurrency('${row.id}', '${row.code}')">Eliminar</button>` : ''}
             `
           }
         )}
@@ -53,8 +53,8 @@ async function renderCurrencies(container) {
             rates,
             {
               actions: row => `
-                <button class="btn btn-sm btn-ghost" onclick="showEditRateForm('${row.id}', ${row.rate})">✏️</button>
-                <button class="btn btn-sm btn-danger" onclick="deleteExchangeRate('${row.id}')">🗑️</button>
+                <button class="btn btn-sm btn-ghost" onclick="showEditRateForm('${row.id}', ${row.rate})">Editar</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteExchangeRate('${row.id}')">Eliminar</button>
               `
             }
           )}

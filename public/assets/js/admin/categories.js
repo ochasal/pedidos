@@ -22,8 +22,8 @@ async function renderCategories(container) {
         {
           emptyMessage: 'No tienes categorías. Crea la primera para organizar tus productos.',
           actions: row => `
-            <button class="btn btn-sm btn-ghost" onclick="showCategoryForm('${row.id}')">✏️</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteCategory('${row.id}', '${row.name}')">🗑️</button>
+            <button class="btn btn-sm btn-ghost" onclick="showCategoryForm('${row.id}')">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteCategory('${row.id}', '${row.name}')">Eliminar</button>
           `
         }
       )}

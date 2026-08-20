@@ -40,8 +40,8 @@ async function renderProducts(container) {
         {
           emptyMessage: 'No tienes productos. ¡Crea el primero!',
           actions: row => `
-            <button class="btn btn-sm btn-ghost" onclick="showProductForm('${row.id}')">✏️</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteProduct('${row.id}', '${row.name}')">🗑️</button>
+            <button class="btn btn-sm btn-ghost" onclick="showProductForm('${row.id}')">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteProduct('${row.id}', '${row.name}')">Eliminar</button>
           `
         }
       )}
@@ -81,12 +81,12 @@ async function showProductForm(productId = null) {
         ${UI.formGroup('Orden', `<input type="number" name="sort_order" class="form-input" value="${product?.sort_order || 0}">`)}
       </div>
       ${UI.formGroup('URL de imagen', `<input type="url" name="image_url" class="form-input" value="${product?.image_url || ''}" placeholder="https://...">`, 'Sube la imagen a Supabase Storage y pega la URL aquí')}
-      <div class="form-group">
+      <div class="form-group" style="display:flex; align-items:center; gap:10px;">
         <label class="toggle">
           <input type="checkbox" name="is_available" ${product?.is_available !== false ? 'checked' : ''}>
           <span class="slider"></span>
         </label>
-        <span style="margin-left:0.5rem; font-size:0.85rem;">Disponible para venta</span>
+        <span style="font-size:13px;">Disponible para venta</span>
       </div>
       <div class="form-actions">
         <button type="button" class="btn btn-ghost" onclick="UI.closeModal('product-modal')">Cancelar</button>

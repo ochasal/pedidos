@@ -41,7 +41,7 @@ async function renderOrders(container) {
           data.orders,
           {
             actions: row => `
-              <button class="btn btn-sm btn-ghost" onclick="viewOrderDetail('${row.id}')">👁️ Ver</button>
+              <button class="btn btn-sm btn-primary" onclick="viewOrderDetail('${row.id}')">Ver detalle</button>
             `
           }
         )}
@@ -139,8 +139,8 @@ async function viewOrderDetail(orderId) {
                   <td>${UI.statusBadge(pay.status)}</td>
                   <td>
                     ${pay.status === 'pending' ? `
-                      <button class="btn btn-sm btn-success" onclick="verifyPayment('${pay.id}', 'verify')">✓</button>
-                      <button class="btn btn-sm btn-danger" onclick="rejectPayment('${pay.id}')">✗</button>
+                      <button class="btn btn-sm btn-success" onclick="verifyPayment('${pay.id}', 'verify')">Verificar</button>
+                      <button class="btn btn-sm btn-danger" onclick="rejectPayment('${pay.id}')">Rechazar</button>
                     ` : (pay.rejection_reason ? `<small>${pay.rejection_reason}</small>` : '')}
                   </td>
                 </tr>
@@ -242,13 +242,13 @@ function getNextStatuses(current) {
 
 function getStatusLabel(status) {
   const labels = {
-    'recibido': '📥 Recibido',
-    'procesando_pago': '💳 Procesando Pago',
-    'en_preparacion': '👨‍🍳 En Preparación',
-    'preparado': '✅ Preparado',
-    'en_camino': '🛵 En Camino',
-    'completado': '🎉 Completado',
-    'cancelado': '❌ Cancelar'
+    'recibido': 'Recibido',
+    'procesando_pago': 'Procesando Pago',
+    'en_preparacion': 'En Preparación',
+    'preparado': 'Preparado',
+    'en_camino': 'En Camino',
+    'completado': 'Completado',
+    'cancelado': 'Cancelar'
   };
   return labels[status] || status;
 }
