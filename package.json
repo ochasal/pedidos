@@ -1,0 +1,21 @@
+{
+  "name": "pedidos-platform",
+  "version": "1.0.0",
+  "description": "Plataforma multi-tenant de pedidos - restaurantes y negocios de comida",
+  "private": true,
+  "scripts": {
+    "dev": "node dev-server.js",
+    "build": "echo 'No build step needed for vanilla JS'",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.49.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.2",
+    "vercel": "^59.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

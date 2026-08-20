@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin - Pedidos</title>
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="app">
+    <nav id="admin-sidebar"></nav>
+    <main id="admin-content">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Cargando panel...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Core -->
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/supabase-client.js"></script>
+  <script src="/assets/js/tenant.js"></script>
+
+  <!-- Admin modules -->
+  <script src="/assets/js/admin/components.js"></script>
+  <script src="/assets/js/admin/api.js"></script>
+  <script src="/assets/js/admin/dashboard.js"></script>
+  <script src="/assets/js/admin/orders.js"></script>
+  <script src="/assets/js/admin/products.js"></script>
+  <script src="/assets/js/admin/categories.js"></script>
+  <script src="/assets/js/admin/payments.js"></script>
+  <script src="/assets/js/admin/currencies.js"></script>
+  <script src="/assets/js/admin/hours.js"></script>
+  <script src="/assets/js/admin/config.js"></script>
+  <script src="/assets/js/admin/employees.js"></script>
+
+  <!-- Main controller (carga último) -->
+  <script src="/assets/js/admin.js"></script>
+</body>
+</html>

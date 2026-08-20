@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda - Pedidos</title>
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="stylesheet" href="/assets/css/store.css">
+</head>
+<body>
+  <div id="app">
+    <header id="store-header"></header>
+    <main id="store-content">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Cargando tienda...</p>
+      </div>
+    </main>
+    <footer id="store-footer"></footer>
+  </div>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Core -->
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/supabase-client.js"></script>
+  <script src="/assets/js/tenant.js"></script>
+  <script src="/assets/js/store.js"></script>
+</body>
+</html>

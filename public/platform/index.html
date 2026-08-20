@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Plataforma - Pedidos</title>
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+  <style>
+    :root {
+      --color-primary: #7c3aed;
+      --color-primary-dark: #6d28d9;
+    }
+    .platform-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+    }
+    .tenant-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .tenant-card .tenant-info { flex: 1; }
+    .tenant-card .tenant-name { font-weight: 600; font-size: 1rem; }
+    .tenant-card .tenant-slug { font-size: 0.8rem; color: var(--color-text-light); }
+    .tenant-card .tenant-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--color-text-light); margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <nav id="admin-sidebar"></nav>
+    <main id="admin-content">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Cargando plataforma...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Core -->
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/supabase-client.js"></script>
+  <script src="/assets/js/admin/components.js"></script>
+
+  <!-- Platform -->
+  <script src="/assets/js/platform/api.js"></script>
+  <script src="/assets/js/platform/main.js"></script>
+</body>
+</html>
