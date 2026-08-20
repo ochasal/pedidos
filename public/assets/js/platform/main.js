@@ -31,12 +31,12 @@
 
 function showPlatformLogin() {
   document.getElementById('app').innerHTML = `
-    <div style="display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--color-bg);">
-      <div class="card" style="width:100%; max-width:400px;">
-        <div style="text-align:center; margin-bottom:1.5rem;">
+    <div style="display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--color-bg); width:100%;">
+      <div class="card" style="width:100%; max-width:380px; padding:32px;">
+        <div style="text-align:center; margin-bottom:24px;">
           <span class="platform-badge">Platform Admin</span>
-          <h2 style="margin-top:0.75rem;">Panel de Plataforma</h2>
-          <p style="color:var(--color-text-light); margin-top:0.5rem;">Solo administradores autorizados</p>
+          <h2 style="margin-top:12px; font-size:20px; font-weight:700;">Panel de Plataforma</h2>
+          <p style="color:var(--color-text-muted); margin-top:6px; font-size:13px;">Solo administradores autorizados</p>
         </div>
         <form id="login-form">
           <div class="form-group">
@@ -47,10 +47,10 @@ function showPlatformLogin() {
             <label class="form-label">Contraseña</label>
             <input type="password" id="login-password" class="form-input" required>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:0.75rem;">
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:10px; margin-top:8px;">
             Acceder
           </button>
-          <p id="login-error" class="hidden" style="color:var(--color-error); text-align:center; margin-top:0.75rem; font-size:0.85rem;"></p>
+          <p id="login-error" class="hidden" style="color:var(--color-error); text-align:center; margin-top:12px; font-size:12px;"></p>
         </form>
       </div>
     </div>
